@@ -12,7 +12,7 @@
 // a-z + ñ + á, é, í, ó, ú
 const char CARACTERES_VALIDOS[] = {
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    (char)0xF2, // ñ
+    (char)0xF1, // ñ
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     (char)0xE1, // á
     (char)0xE9, // é
@@ -252,4 +252,5 @@ void ListaCandidatas(char szPalabrasSugeridas[][TAMTOKEN], int iNumSugeridas,
     }
 
 }
+
 
