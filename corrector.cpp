@@ -9,16 +9,16 @@
 // ---------------------------------------------------------------------------
 
 // (ISO - 8859 - 1 / Latin1)
-// a-z + ñ + á, é, í, ó, ú
+// a-z + Ã± + Ã¡, Ã©, Ã­, Ã³, Ãº
 const char CARACTERES_VALIDOS[] = {
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    (char)0xF1, // ñ
+    (char)0xF1, // Ã±
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    (char)0xE1, // á
-    (char)0xE9, // é
-    (char)0xED, // í
-    (char)0xF3, // ó
-    (char)0xFA  // ú
+    (char)0xE1, // Ã¡
+    (char)0xE9, // Ã©
+    (char)0xED, // Ã­
+    (char)0xF3, // Ã³
+    (char)0xFA  // Ãº
 };
 const int TOTAL_CHARS = 32;
 
@@ -42,14 +42,14 @@ void limpiarPalabra(char* str) {
     }
 }
 
-// Convierte a minúsculas para estandarizar
+// Convierte a minÃºsculas para estandarizar
 void hacerMinuscula(char* str) {
     for (int i = 0; str[i]; i++) {
         str[i] = tolower((unsigned char)str[i]);
     }
 }
 
-// Búsqueda binaria clásica (O(log n)) requerida por rendimiento
+// BÃºsqueda binaria clÃ¡sica (O(log n)) requerida por rendimiento
 int buscarPosicion(char lista[][TAMTOKEN], int total, const char* buscado) {
     int inicio = 0;
     int fin = total - 1;
@@ -65,10 +65,10 @@ int buscarPosicion(char lista[][TAMTOKEN], int total, const char* buscado) {
     return -1;
 }
 
-// Inserta en el array manteniendo orden alfabético (Insertion Sort logic)
+// Inserta en el array manteniendo orden alfabÃ©tico (Insertion Sort logic)
 void insertarEnOrden(char lista[][TAMTOKEN], int freqs[], int& total, const char* nuevo) {
     int i = total - 1;
-    // Desplazamos mientras el nuevo sea "menor" alfabéticamente
+    // Desplazamos mientras el nuevo sea "menor" alfabÃ©ticamente
     while (i >= 0 && strcmp(lista[i], nuevo) > 0) {
         strcpy(lista[i + 1], lista[i]);
         if (freqs != NULL) freqs[i + 1] = freqs[i]; // Solo si manejamos frecuencias
@@ -106,7 +106,7 @@ void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[
                     int pos = buscarPosicion(szPalabras, iNumElementos, buffer);
 
                     if (pos != -1) {
-                        // Ya existe: sumar 1 a su estadística
+                        // Ya existe: sumar 1 a su estadÃ­stica
                         iEstadisticas[pos]++;
                     }
                     else {
@@ -124,7 +124,7 @@ void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[
         }
     }
 
-    // Procesar la última palabra si el archivo no terminó en separador
+    // Procesar la Ãºltima palabra si el archivo no terminÃ³ en separador
     if (idx > 0) {
         buffer[idx] = '\0';
         limpiarPalabra(buffer);
@@ -147,18 +147,18 @@ void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], i
     // 0. Agregar la original primero
     strcpy(szPalabrasSugeridas[iNumSugeridas++], szPalabraLeida);
 
-    // 1. ELIMINACIÓN (Borrar cada char)
+    // 1. ELIMINACIÃ“N (Borrar cada char)
     for (int i = 0; i < len; i++) {
         int p = 0;
         for (int j = 0; j < len; j++) {
             if (i != j) temp[p++] = szPalabraLeida[j];
         }
         temp[p] = '\0';
-        // Solo agregamos si no quedó vacía
+        // Solo agregamos si no quedÃ³ vacÃ­a
         if (p > 0) strcpy(szPalabrasSugeridas[iNumSugeridas++], temp);
     }
 
-    // 2. TRANSPOSICIÓN (Intercambiar vecinos)
+    // 2. TRANSPOSICIÃ“N (Intercambiar vecinos)
     for (int i = 0; i < len - 1; i++) {
         strcpy(temp, szPalabraLeida);
         char aux = temp[i];
@@ -167,7 +167,7 @@ void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], i
         strcpy(szPalabrasSugeridas[iNumSugeridas++], temp);
     }
 
-    // 3. SUSTITUCIÓN (Cambiar cada char por todo el alfabeto)
+    // 3. SUSTITUCIÃ“N (Cambiar cada char por todo el alfabeto)
     for (int i = 0; i < len; i++) {
         for (int k = 0; k < TOTAL_CHARS; k++) {
             strcpy(temp, szPalabraLeida);
@@ -176,7 +176,7 @@ void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], i
         }
     }
 
-    // 4. INSERCIÓN (Meter alfabeto en cada hueco)
+    // 4. INSERCIÃ“N (Meter alfabeto en cada hueco)
     for (int i = 0; i <= len; i++) {
         for (int k = 0; k < TOTAL_CHARS; k++) {
             int p = 0;
@@ -191,7 +191,7 @@ void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], i
             strcpy(szPalabrasSugeridas[iNumSugeridas++], temp);
         }
     }
-    // Ordenar alfabéticamente
+    // Ordenar alfabÃ©ticamente
     for (int i = 0; i < iNumSugeridas - 1; i++) {
         for (int j = 0; j < iNumSugeridas - i - 1; j++) {
             if (strcmp(szPalabrasSugeridas[j], szPalabrasSugeridas[j + 1]) > 0) {
@@ -235,7 +235,7 @@ void ListaCandidatas(char szPalabrasSugeridas[][TAMTOKEN], int iNumSugeridas,
     // Ordenar por peso
     for (int i = 0; i < iNumLista - 1; i++) {
         for (int j = 0; j < iNumLista - i - 1; j++) {
-            // Si el siguiente pesa más, intercambiamos (para que el mayor quede arriba)
+            // Si el siguiente pesa mÃ¡s, intercambiamos (para que el mayor quede arriba)
             if (iPeso[j] < iPeso[j + 1]) {
                 // Swap peso
                 int auxP = iPeso[j];
@@ -250,4 +250,5 @@ void ListaCandidatas(char szPalabrasSugeridas[][TAMTOKEN], int iNumSugeridas,
             }
         }
     }
+
 }
